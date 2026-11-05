@@ -11,7 +11,7 @@ class SettingsTests(unittest.TestCase):
         """Для каждого параметра показать ошибку входных данных."""
         source = Path("examples/cargo.ini").read_text()
         cases = {
-            "package = itoa": "package = !",
+            "package = serde_json": "package = !",
             "repository = https://index.crates.io": "repository = nowhere",
             "test_mode = false": "test_mode = sometimes",
             "image = graph.svg": "image = graph",

@@ -5,14 +5,17 @@ import configparser
 import sys
 from pathlib import Path
 
-from settings import KEYS, load_settings
+from registry import dependencies
+from settings import load_settings
 
 
 def run(path):
-    """Вывести параметры прототипа."""
-    settings, _ = load_settings(path)
-    for key in KEYS:
-        print(f"{key}={settings[key]}")
+    """Напечатать прямые зависимости из индекса Cargo."""
+    settings, local = load_settings(path)
+    if local:
+        raise ValueError("тестовый репозиторий доступен с этапа 3")
+    for name in dependencies(settings["repository"], settings["package"]):
+        print(name)
 
 
 def main():

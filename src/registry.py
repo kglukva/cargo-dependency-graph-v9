@@ -1,6 +1,7 @@
 """Чтение метаданных из sparse-индекса Cargo."""
 
 import json
+import sys
 from urllib.request import urlopen
 
 
@@ -15,6 +16,7 @@ def index_path(name):
 def dependencies(base, name):
     """Вернуть имена зависимостей последней опубликованной активной версии."""
     url = f"{base.rstrip('/')}/{index_path(name)}"
+    print(f"Загрузка зависимостей {name}...", file=sys.stderr, flush=True)
     with urlopen(url, timeout=20) as response:
         records = [json.loads(line) for line in response if line.strip()]
     for record in reversed(records):
